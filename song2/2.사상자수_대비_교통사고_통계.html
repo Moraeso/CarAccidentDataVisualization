@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>1.Accident by Casualties</title>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <style>
+    svg {
+      width: 900px;
+      height: 600px;
+      border: 1px solid black;
+    }
+
+    body {
+      font: 12px Arial;
+    }
+
+    path {
+      fill: none;
+    }
+
+    .overlay {
+      fill: none;
+      pointer-events: all;
+    }
+
+    .focus circle {
+      fill: steelblue;
+    }
+
+    .focus text {
+      font-size: 14px;
+    }
+
+    .tooltip {
+      fill: white;
+      stroke: #000;
+    }
+
+    .tooltip-cslt,
+    .tooltip-acdt {
+      font-weight: bold;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: grey;
+      stroke-width: 1;
+      shape-rendering: crispEdges;
+    }
+
+    .grid line {
+      stroke: lightgrey;
+      stroke-opacity: 0.7;
+    }
+
+    div.tooltip {
+      position: absolute;
+      text-align: center;
+      width: 100px;
+      height: 32px;
+      padding: 2px;
+      font: 12px sans-serif;
+      background: lightsteelblue;
+      border: 0px;
+      border-radius: 8px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- load the d3.js library -->
+
+  <script>
+    // Set the dimensions of the canvas / graph
+    var margin = {
+        top: 100,
+        right: 100,
+        bottom: 70,
+        left: 50
+      },
+      width = 900 - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom;
+
+    // Set the ranges
+    var x = d3.scale.linear().range([margin.left - 20, width - margin.right - 20]);
+    var y = d3.scale.linear().range([height, 0]);
+
+    // Define the axes
+    var xAxis = d3.svg.axis().scale(x)
+      .orient("bottom").ticks(10);
+
+    var yAxis = d3.svg.axis().scale(y)
+      .orient("left").ticks(10);
+
+    // Define the line
+    var valueline = d3.svg.line()
+      .x(function(d, i) {
+        return x(i + 1) + margin.left;
+      })
+      .y(function(d) {
+        return y(d);
+      });
+
+    // Define the div for the tooltip
+    var div = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+    // Adds the svg canvas
+    var svg = d3.select("body")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // title 추가
+    svg.append("text")
+      .attr("x", 250)
+      .attr("y", -30)
+      .attr("font-family", "sans-serif")
+      .style("font-size", "20px")
+      .text("사상자 수 별 교통사고 발생 통계");
+
+    svg.append("text")
+      .attr("x", 8)
+      .attr("y", -15)
+      .attr("font-family", "sans-serif")
+      .style("font-size", "12px")
+      .text("사고 수");
+
+    // title 추가
+    svg.append("text")
+      .attr("x", width - 60)
+      .attr("y", height + 18)
+      .attr("font-family", "sans-serif")
+      .style("font-size", "12px")
+      .text("이상 / 사상자 수");
+
+
+    // Get the data
+    d3.csv("data.csv", function(error, data) {
+
+      var dataSet = [];
+
+      // 데이터 필터링 : 차대차 & !자전거
+      var filtered = data.filter(function(d) {
+        return d["사고유형_대분류"] == "차대차" &&
+          d["가해자_당사자종별_대분류"] != "자전거" &&
+          d["피해자_당사자종별_대분류"] != "자전거";
+      })
+
+      // 요일 별 전체 사고
+      for (var i = 0; i < filtered.length; i++) {
+        var casualties = filtered[i].사상자수;
+        if (casualties >= 10) {
+          casualties = 10;;
+        }
+        if (dataSet[casualties - 1] == null) {
+          dataSet[casualties - 1] = 0;
+        }
+        dataSet[casualties - 1]++;
+      }
+
+      // Scale the range of the data
+      x.domain([1, 10]);
+      y.domain([0, d3.max(dataSet, function(d) {
+        return d;
+      }) + 200]);
+
+      // Add the valueline path.
+
+      svg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(dataSet))
+        .style("stroke", "steelblue")
+        .style("stroke-width", 2);
+
+
+      // Add the X Axis
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + margin.left + "," + height + ")")
+        .call(xAxis)
+
+      // Add the Y Axis
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + margin.left + ", 0 )")
+        .call(yAxis);
+
+
+      // Add grid line
+      svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", "translate(" + margin.left + "," + height + ")")
+        .call(xAxis.tickFormat("").tickSize(-height));
+
+      svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", "translate(" + margin.left + ", 0 )")
+        .call(yAxis.tickFormat("").tickSize(-width + margin.left));
+
+      // Add the line
+      svg.selectAll("dot")
+        .data(dataSet)
+        .enter()
+        .append("circle")
+        .attr("fill", "red")
+        .attr("stroke", "none")
+        .attr("cx", function(d, i) {
+          return x(i + 1) + margin.left
+        })
+        .attr("cy", function(d) {
+          return y(d)
+        })
+        .attr("r", 3)
+        .on("mouseover", function(d, i) {
+          div.transition()
+            .duration(200)
+            .style("opacity", .9);
+          div.html("평균 사상자 : " + (i+1) + "명<br/>" + "사고 수 : " + dataSet[i])
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+          div.transition()
+            .duration(500)
+            .style("opacity", 0);
+        });
+
+    });
+  </script>
+</body>
+
+</html>

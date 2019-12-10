@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>3.Casualites by Time</title>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <style>
+    svg {
+      width: 900px;
+      height: 600px;
+      border: 1px solid black;
+    }
+
+    body {
+      font: 12px Arial;
+    }
+
+    path {
+      fill: none;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: grey;
+      stroke-width: 1;
+      shape-rendering: crispEdges;
+    }
+
+    .grid line {
+      stroke: lightgrey;
+      stroke-opacity: 0.7;
+    }
+
+    .bar {
+      fill: skyblue;
+      fill-opacity: 0.3;
+      stroke: skyblue;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- load the d3.js library -->
+
+  <script>
+    // Set the dimensions of the canvas / graph
+    var margin = {
+        top: 100,
+        right: 100,
+        bottom: 70,
+        left: 50
+      },
+      width = 900 - margin.left - margin.right,
+      height = 600 - margin.top - margin.bottom;
+
+    // Set the ranges
+    var x = d3.scale.linear().range([margin.left - 20, width - margin.right - 20]);
+    var y = d3.scale.linear().range([height, 0]);
+
+    // Define the axes 사고 수
+    var xAxis = d3.svg.axis().scale(x)
+      .orient("bottom").ticks(24);
+
+    var yAxis = d3.svg.axis().scale(y)
+      .orient("left").ticks(10);
+
+    // axes 평균 사상자 수
+    var y2 = d3.scale.linear().range([height, 0]);
+    var yAxisCslt = d3.svg.axis().scale(y2)
+      .orient("right").ticks(9);
+
+    // Define the line
+    var valueline = d3.svg.line()
+      .x(function(d, i) {
+        return x(i) + margin.left;
+      })
+      .y(function(d) {
+        return y(d);
+      });
+
+    // Adds the svg canvas
+    var svg = d3.select("body")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // title 추가
+    svg.append("text")
+      .attr("x", 250)
+      .attr("y", -30)
+      .attr("font-family", "sans-serif")
+      .style("font-size", "20px")
+      .text("시간대 별 평균 교통사고 사상자 통계");
+
+    svg.append("text")
+      .attr("x", 8)
+      .attr("y", -15)
+      .attr("font-family", "sans-serif")
+      .style("font-size", "12px")
+      .text("사고 수");
+
+    svg.append("text")
+      .attr("x", width - 50)
+      .attr("y", -15)
+      .attr("font-family", "sans-serif")
+      .style("font-size", "12px")
+      .text("평균 사상자 수");
+
+    // title 추가
+    svg.append("text")
+      .attr("x", width - 60)
+      .attr("y", height + 18)
+      .attr("font-family", "sans-serif")
+      .style("font-size", "12px")
+      .text("/ 시간");
+
+
+    // Get the data
+    d3.csv("data.csv", function(error, data) {
+
+      var dataAcdt = [];
+      var dataCslt = [];
+
+      // 데이터 필터링 : 차대차 & !자전거
+      var filtered = data.filter(function(d) {
+        return d["사고유형_대분류"] == "차대차" &&
+          d["가해자_당사자종별_대분류"] != "자전거" &&
+          d["피해자_당사자종별_대분류"] != "자전거";
+      })
+
+      // 데이터 입력
+      for (var i = 0; i < filtered.length; i++) {
+        var time = filtered[i].발생시간;
+        // 발생시간에 일어난 사고 수
+        if (dataAcdt[time] == null) {
+          dataAcdt[time] = 0;
+        }
+        dataAcdt[time]++;
+
+        // 해당 사고의 사상자 수
+        if (dataCslt[time] == null) {
+          dataCslt[time] = 0;
+        }
+        dataCslt[time] += parseInt(filtered[i].사상자수);
+      }
+
+      // 시간 별 평균 사상자
+      for (var i = 0; i < dataCslt.length; i++) {
+        dataCslt[i] /= dataAcdt[i];
+      }
+
+      // Scale the range of the data
+      x.domain([0, 23]);
+      y.domain([0, d3.max(dataAcdt, function(d) {
+        return d;
+      }) + 200]);
+
+      // 라인 그리기
+      svg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(dataAcdt))
+        .style("stroke", "steelblue")
+        .style("stroke-width", 2);
+
+      // Add the X Axis
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + margin.left + "," + height + ")")
+        .call(xAxis)
+
+      // Add the Y Axis
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + margin.left + ", 0 )")
+        .call(yAxis);
+
+      // Add grid line
+      svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", "translate(" + margin.left + "," + height + ")")
+        .call(xAxis.tickFormat("").tickSize(-height));
+
+      svg.append("g")
+        .attr("class", "grid")
+        .attr("transform", "translate(" + margin.left + ", 0 )")
+        .call(yAxis.tickFormat("").tickSize(-width + margin.left));
+
+      // 점 찍기
+      svg.selectAll("circle")
+        .data(dataAcdt)
+        .enter()
+        .append("circle")
+        .attr("fill", "red")
+        .attr("stroke", "none")
+        .attr("cx", function(d, i) {
+          return x(i) + margin.left
+        })
+        .attr("cy", function(d) {
+          return y(d)
+        })
+        .attr("r", 3)
+
+      var dataMaxCslt = d3.max(dataCslt, function(d) {
+        return d;
+      });
+
+      var yScale = d3.scale.linear() // 연속 이라서 linear씀
+        .domain([0, dataMaxCslt])
+        .range([height, height / 2]); // y 축은 아래에서부터 0으로 올라옴
+
+      var xInterval = (width - margin.left - margin.right) / 23;
+
+      svg.selectAll("rect")
+        .data(dataCslt) //사용할 데이터 지정
+        .enter() //데이터별로 실행
+        .append("rect") //데이터별 사각형 생성
+        .attr("class", "bar") //클래스 바로 지정
+        .attr("height", function(d) {
+          return height - yScale(d);
+        }) //그려질애의 높이
+        .attr("width", xInterval) //그려질애의 넓이 -> 들어올 데이터의 개수에따라 알아서 나눠짐
+        .attr("x", function(d, i) {
+          return (i + 1) * xInterval + margin.left - 10;
+        }) //그려질애의 x좌표
+        .attr("y", function(d) {
+          return yScale(d)
+        }); //그려질애의 y좌표;
+
+      y2.domain([0, dataMaxCslt * 2]);
+      // Add the Y Axis
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + (width) + ", 0 )")
+        .call(yAxisCslt);
+
+    });
+  </script>
+</body>
+
+</html>

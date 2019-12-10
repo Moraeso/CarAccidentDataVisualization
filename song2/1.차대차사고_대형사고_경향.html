@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="urf-8">
+  <title>0.How Accident is Big</title>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <style>
+    svg {
+      width: 500px;
+      height: 500px;
+      border: 1px solid black;
+    }
+
+    body {
+      font: 12px Arial;
+    }
+
+    .barWeekday {
+      fill: rgba(74, 91, 180, 0.5);
+    }
+
+    .barWeekend {
+      fill: rgba(166, 85, 85, 0.52);
+    }
+
+    .barWeekdayBig {
+      fill: rgba(0, 41, 255, 0.83);
+    }
+
+    .barWeekendBig {
+      fill: rgba(255, 0, 0, 0.78);
+    }
+
+    .barNum {
+      font-size: 9pt;
+      font-famaily: Arial;
+      text_anchor: middle;
+    }
+
+    .barPercent {
+      font-size: 9pt;
+      font-famaily: Arial;
+      text_anchor: middle;
+    }
+
+    .axis text {
+      font-famaily: Arial;
+      font-size: 9px;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      font-famaily: Arial;
+      font-size: 10px;
+      stroke: black;
+    }
+
+    .axis_x line {
+      fill: none;
+      font-size: 6px;
+      stroke: black;
+    }
+
+    .grid line {
+      stroke: lightgrey;
+      stroke-opacity: 0.7;
+    }
+
+    .barName {
+      font-size: 9pt;
+      text_anchor: middle;
+      font-famaily: Arial;
+    }
+  </style>
+</head>
+
+<body>
+  <svg id="myGraph"></svg>
+  <script src="1.big_car_accident.js" charset="utf-8"></script>
+</body>
+
+</html>

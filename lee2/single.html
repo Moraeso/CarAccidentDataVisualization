@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="https://d3js.org/queue.v1.min.js"></script>
+  <script src="https://d3js.org/topojson.v1.min.js"></script>
+  <style>
+    svg {
+      background-color: #F0FFFF;
+    }
+
+    svg circle {
+      opacity: .5;
+      stroke: white;
+    }
+
+    svg .province {
+      fill: #efefef;
+      stroke: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="title"></div>
+  <div id="chart"></div>
+  <script>
+    var width = 960,
+      height = 500;
+
+    var colorScale = d3.scale.linear()
+      .range(['yellowgreen', 'yellow']) // or use hex values
+      .domain([20, 50]);
+
+    var svg = d3.select("#chart").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    var map = svg.append("g").attr("id", "map"),
+      points = svg.append("g").attr("id", "cities");
+
+    var projection = d3.geo.mercator()
+      .center([128, 36])
+      .scale(4000)
+      .translate([width / 3, height / 2]);
+
+    var path = d3.geo.path().projection(projection);
+
+    var quantize = d3.scale.quantize()
+      .domain([0, 12234630]) // FIXME: automate
+      .range(d3.range(9).map(function(i) {
+        return " p" + i;
+      }));
+
+    var popById = d3.map();
+
+    var radius = d3.scale.sqrt()
+      .domain([0, 1e6])
+      .range([0, 15]);
+
+    d3.json("provinces-topo-simple.json", function(error, data) {
+      map.selectAll('path')
+        .data(topojson.feature(data, data.objects['provinces-geo']).features)
+        .enter().append('path')
+        .attr('class', function(d) {
+          console.log();
+          return 'province c' + d.properties.code
+        })
+        .attr('d', path)
+    });
+  </script>
+  <script src="single.js" charset="utf-8"></script>
+</body>
+
+</html>

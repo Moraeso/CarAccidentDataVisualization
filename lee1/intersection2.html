@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="urf-8">
+  <title>My Graph</title>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <style>
+    svg {
+      width: 300px;
+      height: 850px;
+      border: 1px solid black;
+    }
+
+    /*.bar {
+      fill: LightPink;
+      fill: red;
+    }*/
+
+    .barNum {
+      font-size: 9pt;
+      text_anchor: middle;
+    }
+
+    .axis text {
+      font-family: sans-serif;
+      fontsize: 11px;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: black;
+    }
+
+    .axis_x line {
+      fill: none;
+      stroke: black;
+    }
+
+    .barName {
+      font-size: 9pt;
+      text_anchor: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <svg id="myGraph">
+  </svg>
+  <script src="intersection2.js" charset="utf-8"></script>
+</body>
+
+</html>
