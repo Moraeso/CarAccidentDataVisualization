@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+    <meta charset="utf-8">
+    <title>Data Visualization</title>
+    <style>
+      .snip1535 {
+        background-color: #c47135;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'BenchNine', Arial, sans-serif;
+        font-size: 1em;
+        font-size: 22px;
+        line-height: 1em;
+        margin: 15px 40px;
+        outline: none;
+        padding: 12px 40px 10px;
+        position: relative;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .snip1535:before,
+      .snip1535:after {
+        border-color: transparent;
+        -webkit-transition: all 0.25s;
+        transition: all 0.25s;
+        border-style: solid;
+        border-width: 0;
+        content: "";
+        height: 24px;
+        position: absolute;
+        width: 24px;
+      }
+      .snip1535:before {
+        border-color: #c47135;
+        border-right-width: 2px;
+        border-top-width: 2px;
+        right: -5px;
+        top: -5px;
+      }
+      .snip1535:after {
+        border-bottom-width: 2px;
+        border-color: #c47135;
+        border-left-width: 2px;
+        bottom: -5px;
+        left: -5px;
+      }
+      .snip1535:hover,
+      .snip1535.hover {
+        background-color: #c47135;
+      }
+      .snip1535:hover:before,
+      .snip1535.hover:before,
+      .snip1535:hover:after,
+      .snip1535.hover:after {
+        height: 100%;
+        width: 100%;
+      }
+      h1:first-letter{
+        color:#e74c3c;
+        border-bottom:1px solid #e74c3c;
+      }
+      h1 {
+        text-align:center;
+      }
+      #jb-container {
+        width: 940px;
+        margin: 100px auto;
+        padding: 20px;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-header {
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-content {
+        width: 900px;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+      }
+      #jb-footer {
+        clear: both;
+        padding: 20px;
+        border: 1px solid #bcbcbc;
+      }
+    </style>
+    <script>
+      /* Demo purposes only */
+    $(".hover").mouseleave(
+      function() {
+        $(this).removeClass("hover");
+      }
+    );
+    </script>
+
+  </head>
+  <body>
+    <div id="jb-container">
+      <div id="jb-header">
+        <h1>Data Visualization</h1>
+      </div>
+      <div id="jb-content">
+        <div class="snip1535" onclick="location.href ='./대형 사고(사상자 3명 이상)의 원인 분석/1.차대차사고_대형사고_경향.html'" style="cursor:pointer;">대형 사고(사상자 3명 이상)의 원인 분석</div>
+        <div class="snip1535" onclick="location.href ='./대형 사고(사상자 3명 이상)의 원인 분석[지도]/전국_신호위반_대형사고_분포.html'" style="cursor:pointer;">대형 사고(사상자 3명 이상)의 원인 분석[지도]</div>
+        <div class="snip1535" onclick="location.href ='./도로 형태에 따른 사고 원인 분석/total.html'" style="cursor:pointer;">도로 형태에 따른 사고 원인 분석</div>
+        <div class="snip1535" onclick="location.href ='./도로 형태에 따른 사고 원인 분석[지도]/map.html'" style="cursor:pointer;">도로 형태에 따른 사고 원인 분석[지도]</div>
+      </div>
+
+      <div id="jb-footer">
+        <p>15011087 송상현 14011095 이성호</p>
+      </div>
+    </div>
+
+
+
+
+
+</body></html>
