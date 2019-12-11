@@ -86,10 +86,10 @@ d3.csv("./data2.csv", function(error, data) {
       return i * 400; //0.4초 대기
     })
     .attr("y", function(d, i) { //Y 좌표를 지정
-      return svgHeight - d*29 - offsetY; //Y 좌표를 계산
+      return svgHeight - d*20 - offsetY; //Y 좌표를 계산
     })
     .attr("height", function(d, i) { //넓이설정.2번째의 파라미터에 함수지정
-      return d*29; //데이터 값을 그대로 높이로 지정
+      return d*20; //데이터 값을 그대로 높이로 지정
     })
 
   // text 요소 지정
@@ -108,7 +108,7 @@ d3.csv("./data2.csv", function(error, data) {
     var yScale = d3.scale
     .linear() //스케일 설정
     .domain([0, dataMax]) //원래크기
-    .range([dataMax, -dataMax*28]); //실제 출력 크기
+    .range([dataMax, -dataMax*19]); //실제 출력 크기
 
     var axis = d3.svg.axis()
     .orient('left')

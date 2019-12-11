@@ -23,7 +23,7 @@ d3.csv("./data2.csv", function(error, data) {
 
   var colorData = ["#DB7093", "#FF9999", "#FFB6C1", "#FFE4E1"];
   var pie = d3.layout.pie();
-  var arc = d3.svg.arc().innerRadius(70).outerRadius(300);
+  var arc = d3.svg.arc().innerRadius(60).outerRadius(250);
 
   var svg = d3.select(".one-graph")
       .append("svg")

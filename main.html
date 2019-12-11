@@ -3,8 +3,8 @@
     <meta charset="utf-8">
     <title>Data Visualization</title>
     <style>
-      .snip1535 {
-        background-color: #c47135;
+      .snip1535_1 {
+        background-color: #5882FA;
         border: none;
         color: #ffffff;
         cursor: pointer;
@@ -15,7 +15,58 @@
         line-height: 1em;
         margin: 15px 40px;
         outline: none;
-        padding: 12px 40px 10px;
+        padding: 12px 70px 10px 70px;
+        position: relative;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .snip1535_2 {
+        background-color: #5882FA;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'BenchNine', Arial, sans-serif;
+        font-size: 1em;
+        font-size: 22px;
+        line-height: 1em;
+        margin: 15px 40px;
+        outline: none;
+        padding: 12px 40px 10px 40px;
+        position: relative;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .snip1535_3 {
+        background-color: #8258FA;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'BenchNine', Arial, sans-serif;
+        font-size: 1em;
+        font-size: 22px;
+        line-height: 1em;
+        margin: 15px 40px 15px 40px;
+        outline: none;
+        padding: 12px 105px 10px 105px;
+        position: relative;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .snip1535_4 {
+        background-color: #8258FA;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'BenchNine', Arial, sans-serif;
+        font-size: 1em;
+        font-size: 22px;
+        line-height: 1em;
+        margin: 15px 40px 15px 40px;
+        outline: none;
+        padding: 12px 75px 10px 75px;
         position: relative;
         text-transform: uppercase;
         font-weight: 700;
@@ -57,35 +108,38 @@
         height: 100%;
         width: 100%;
       }
-      h1:first-letter{
-        color:#e74c3c;
-        border-bottom:1px solid #e74c3c;
-      }
       h1 {
-        text-align:center;
+        text-align:left;
+        margin-left: 35px;
+        font-size: 35px;
+      }
+      h2 {
+        font-size: 20px;
+        margin-left: 40px;
       }
       #jb-container {
-        width: 940px;
+        background-color: #EFFBFB;
+        width: 1250px;
         margin: 100px auto;
         padding: 20px;
         border: 1px solid #bcbcbc;
       }
       #jb-header {
-        padding: 20px;
-        margin-bottom: 20px;
-        border: 1px solid #bcbcbc;
+        padding: 10px;
+        outline: none;
       }
       #jb-content {
-        width: 900px;
-        padding: 20px;
+        width: 1220px;
+        padding: 10px;
         margin-bottom: 20px;
         float: left;
-        border: 1px solid #bcbcbc;
+        outline: none;
       }
       #jb-footer {
         clear: both;
         padding: 20px;
-        border: 1px solid #bcbcbc;
+        outline: none;
+        text-align: right;
       }
     </style>
     <script>
@@ -102,21 +156,18 @@
     <div id="jb-container">
       <div id="jb-header">
         <h1>Data Visualization</h1>
+        <h2>-사망교통사고 데이터 분석 및 시각화</h2>
       </div>
       <div id="jb-content">
-        <div class="snip1535" onclick="location.href ='./대형 사고(사상자 3명 이상)의 원인 분석/1.차대차사고_대형사고_경향.html'" style="cursor:pointer;">대형 사고(사상자 3명 이상)의 원인 분석</div>
-        <div class="snip1535" onclick="location.href ='./대형 사고(사상자 3명 이상)의 원인 분석[지도]/전국_신호위반_대형사고_분포.html'" style="cursor:pointer">대형 사고(사상자 3명 이상)의 원인 분석[지도]</div>
-        <div class="snip1535" onclick="location.href ='./도로 형태에 따른 사고 원인 분석/total.html'" style="cursor:pointer;">도로 형태에 따른 사고 원인 분석</div>
-        <div class="snip1535" onclick="location.href ='./도로 형태에 따른 사고 원인 분석[지도]/map.html'" style="cursor:pointer;">도로 형태에 따른 사고 원인 분석[지도]</div>
+        <div class="snip1535_1" onclick="location.href ='./대형 사고(사상자 3명 이상)의 원인 분석/1.차대차사고_대형사고_경향.html'" style="cursor:pointer;">대형 사고(사상자 3명 이상)의 원인 분석</div>
+        <div class="snip1535_2" onclick="location.href ='./대형 사고(사상자 3명 이상)의 원인 분석[지도]/전국_신호위반_대형사고_분포.html'" style="cursor:pointer">대형 사고(사상자 3명 이상)의 원인 분석[지도]</div>
+        <div class="snip1535_3" onclick="location.href ='./도로 형태에 따른 사고 원인 분석/total.html'" style="cursor:pointer;">도로 형태에 따른 사고 원인 분석</div>
+        <div class="snip1535_4" onclick="location.href ='./도로 형태에 따른 사고 원인 분석[지도]/map.html'" style="cursor:pointer;">도로 형태에 따른 사고 원인 분석[지도]</div>
       </div>
 
       <div id="jb-footer">
-        <p>15011087 송상현 14011095 이성호</p>
+        <p><b>15011087 송상현</b></p>
+        <p><b>14011095 이성호</b></p>
       </div>
     </div>
-
-
-
-
-
 </body></html>
