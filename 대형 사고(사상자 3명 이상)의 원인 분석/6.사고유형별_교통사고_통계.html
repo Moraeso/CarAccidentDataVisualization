@@ -158,18 +158,6 @@
         .attr("class", "bar")
         .attr("transform", function(d) {
           return "translate(0," + y(d.rows) + ")";
-        })
-        .on("mouseover", function(d) {
-          svg.selectAll('.y').selectAll('text').filter(function(text) {
-              return text === d.rows;
-            })
-            .transition().duration(100).style('font', '15px sans-serif');
-        })
-        .on("mouseout", function(d) {
-          svg.selectAll('.y').selectAll('text').filter(function(text) {
-              return text === d.rows;
-            })
-            .transition().duration(100).style('font', '10px sans-serif');
         });
 
       var bars = rows.selectAll("rect")
