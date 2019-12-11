@@ -3,9 +3,11 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="../menuStyle.css">
   <style>
     svg {
       background-color: #a8daf7;
+      margin-left: 30px;
     }
 
     svg circle {
@@ -56,26 +58,32 @@
       fill: #445671;
       opacity: .1;
     }
-
-    #title {
-      position: absolute;
-      top: 6px;
-      left: 330px;
-      width: 350px;
-      font-family: sans-serif;
-      text-align: right;
-    }
-
-    #title p {
-      font-size: 10pt;
-    }
   </style>
 </head>
 
 <body>
-  <div id="title">
-
-    <h2>전국 신호위반 대형사고 분포</h2>
+  <div class="title">
+    대형 사고(사상자 3명 이상)의 원인 분석 [지도]
+  </div>
+  <div id="menu">
+  <div class="button-line2" onclick="location.href='./전국_차대차_사고_분포.html'">
+    <a>전국<br/>차대차 사고</a>
+  </div>
+  <div class="button-line2" style="width:170px" onclick="location.href='./전국_안전운전의무불이행_대형사고_분포.html'">
+    <a>안전운전의무불이행<br/>대형사고</a>
+  </div>
+  <div class="button-line2" onclick="location.href='./전국_중앙선침범_대형사고_분포.html'">
+    <a>중앙선침범<br/>대형사고</a>
+  </div>
+  <div class="button-line2-fill" onclick="location.href='./전국_신호위반_대형사고_분포.html'">
+    <a>신호위반<br/>대형사고</a>
+  </div>
+  <div class="button-line2" onclick="location.href='./지역별_사상자_평균.html'">
+    <a>지역별 평균<br/>사상자</a>
+  </div>
+  <div class="button-line1" onclick="location.href='../main.html'">
+    <a>Main</a>
+  </div>
   </div>
 
   </div>
