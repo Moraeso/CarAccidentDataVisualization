@@ -80,7 +80,7 @@
   <script src="https://d3js.org/topojson.v1.min.js"></script>
   <script>
     var width = 700,
-      height = 900;
+      height = 600;
 
     var colorScale = d3.scale.linear()
       .range(['yellowgreen', 'yellow']) // or use hex values
@@ -95,7 +95,7 @@
 
     var projection = d3.geo.mercator()
       .center([128, 36])
-      .scale(7500)
+      .scale(5000)
       .translate([width / 2, height / 2]);
 
     var path = d3.geo.path().projection(projection);
@@ -159,7 +159,7 @@
         .attr("class", function(d) {
           return "weekend"
         })
-        
+
         var filtered2 = filtered.filter(function(d) {
           return d;
         })

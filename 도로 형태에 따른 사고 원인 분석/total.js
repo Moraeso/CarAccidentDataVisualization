@@ -1,5 +1,5 @@
 d3.csv("./data2.csv", function(error, data) {
-  var w = 400, h = 400;
+  var w = 600, h = 600;
   var graphData = [0, 0, 0];
   var dataName = ["단일로", "교차로", "기타"];
 
@@ -19,7 +19,7 @@ d3.csv("./data2.csv", function(error, data) {
 
   var colorData = ["#2E2EFE", "#1E90FF", "#87CEEB"];
   var pie = d3.layout.pie();
-  var arc = d3.svg.arc().innerRadius(70).outerRadius(200);
+  var arc = d3.svg.arc().innerRadius(60).outerRadius(250);
 
   var svg = d3.select(".one-graph")
       .append("svg")
